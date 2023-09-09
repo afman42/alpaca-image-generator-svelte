@@ -1,0 +1,341 @@
+const alpacaAsset = "/alpaca";
+const dataAlpaca = {
+  nose: [
+    {
+      id: 1,
+      image: alpacaAsset + "/nose.png",
+      name: "Nose",
+      selected: true,
+    },
+  ],
+  mouth: [
+    {
+      id: 1,
+      image: alpacaAsset + "/mouth/default.png",
+      name: "Default",
+      selected: true,
+    },
+    {
+      id: 2,
+      image: alpacaAsset + "/mouth/astonished.png",
+      name: "Astonished",
+      selected: false,
+    },
+    {
+      id: 3,
+      image: alpacaAsset + "/mouth/eating.png",
+      name: "Eating",
+      selected: false,
+    },
+    {
+      id: 4,
+      image: alpacaAsset + "/mouth/laugh.png",
+      name: "Laugh",
+      selected: false,
+    },
+    {
+      id: 5,
+      image: alpacaAsset + "/mouth/tongue.png",
+      name: "Tongue",
+      selected: false,
+    },
+  ],
+  leg: [
+    {
+      id: 1,
+      image: alpacaAsset + "/leg/default.png",
+      name: "Default",
+      selected: true,
+    },
+    {
+      id: 2,
+      image: alpacaAsset + "/leg/bubble-tea.png",
+      name: "BubbleTea",
+      selected: false,
+    },
+    {
+      id: 3,
+      image: alpacaAsset + "/leg/cookie.png",
+      name: "Cookie",
+      selected: false,
+    },
+    {
+      id: 4,
+      image: alpacaAsset + "/leg/game-console.png",
+      name: "GameConsole",
+      selected: false,
+    },
+    {
+      id: 5,
+      image: alpacaAsset + "/leg/tilt-backward.png",
+      name: "TiltBackward",
+      selected: false,
+    },
+    {
+      id: 6,
+      image: alpacaAsset + "/leg/tilt-forward.png",
+      name: "TiltForward",
+      selected: false,
+    },
+  ],
+  hair: [
+    {
+      id: 1,
+      image: alpacaAsset + "/hair/default.png",
+      name: "Default",
+      selected: true,
+    },
+    {
+      id: 2,
+      image: alpacaAsset + "/hair/curls.png",
+      name: "Curls",
+      selected: false,
+    },
+    {
+      id: 3,
+      image: alpacaAsset + "/hair/elegant.png",
+      name: "Elegant",
+      selected: false,
+    },
+    {
+      id: 4,
+      image: alpacaAsset + "/hair/fancy.png",
+      name: "Fancy",
+      selected: false,
+    },
+    {
+      id: 5,
+      image: alpacaAsset + "/hair/quiff.png",
+      name: "Quiff",
+      selected: false,
+    },
+    {
+      id: 6,
+      image: alpacaAsset + "/hair/short.png",
+      name: "Short",
+      selected: false,
+    },
+  ],
+  eyes: [
+    {
+      id: 1,
+      image: alpacaAsset + "/eyes/default.png",
+      name: "Default",
+      selected: true,
+    },
+    {
+      id: 2,
+      image: alpacaAsset + "/eyes/angry.png",
+      name: "Angry",
+      selected: false,
+    },
+    {
+      id: 3,
+      image: alpacaAsset + "/eyes/naughty.png",
+      name: "Naughty",
+      selected: false,
+    },
+    {
+      id: 4,
+      image: alpacaAsset + "/eyes/panda.png",
+      name: "Panda",
+      selected: false,
+    },
+    {
+      id: 5,
+      image: alpacaAsset + "/eyes/smart.png",
+      name: "Smart",
+      selected: false,
+    },
+    {
+      id: 6,
+      image: alpacaAsset + "/eyes/star.png",
+      name: "Star",
+      selected: false,
+    },
+  ],
+  ears: [
+    {
+      id: 1,
+      image: alpacaAsset + "/ears/default.png",
+      name: "Default",
+      selected: true,
+    },
+    {
+      id: 2,
+      image: alpacaAsset + "/ears/tilt-backward.png",
+      name: "TiltBackward",
+      selected: false,
+    },
+    {
+      id: 3,
+      image: alpacaAsset + "/ears/tilt-forward.png",
+      name: "TiltForward",
+      selected: false,
+    },
+  ],
+  neck: [
+    {
+      id: 1,
+      image: alpacaAsset + "/neck/default.png",
+      name: "Default",
+      selected: true,
+    },
+    {
+      id: 2,
+      image: alpacaAsset + "/neck/bend-backward.png",
+      name: "BendBackward",
+      selected: false,
+    },
+    {
+      id: 3,
+      image: alpacaAsset + "/neck/bend-forward.png",
+      name: "BendForward",
+      selected: false,
+    },
+    {
+      id: 4,
+      image: alpacaAsset + "/neck/thick.png",
+      name: "Thick",
+      selected: false,
+    },
+  ],
+  accessories: [
+    {
+      id: 1,
+      image: alpacaAsset + "/accessories/earings.png",
+      name: "Earings",
+      selected: true,
+    },
+    {
+      id: 2,
+      image: alpacaAsset + "/accessories/flower.png",
+      name: "Flower",
+      selected: false,
+    },
+    {
+      id: 3,
+      image: alpacaAsset + "/accessories/glasses.png",
+      name: "Glasses",
+      selected: false,
+    },
+    {
+      id: 4,
+      image: alpacaAsset + "/accessories/headphone.png",
+      name: "Headphone",
+      selected: false,
+    },
+  ],
+  backgrounds: [
+    {
+      id: 1,
+      image: alpacaAsset + "/backgrounds/blue50.png",
+      name: "Blue50",
+      selected: true,
+    },
+    {
+      id: 2,
+      image: alpacaAsset + "/backgrounds/blue60.png",
+      name: "Blue60",
+      selected: false,
+    },
+    {
+      id: 3,
+      image: alpacaAsset + "/backgrounds/blue70.png",
+      name: "Blue70",
+      selected: false,
+    },
+    {
+      id: 4,
+      image: alpacaAsset + "/backgrounds/darkblue30.png",
+      name: "DarkBlue30",
+      selected: false,
+    },
+    {
+      id: 5,
+      image: alpacaAsset + "/backgrounds/darkblue50.png",
+      name: "DarkBlue50",
+      selected: false,
+    },
+    {
+      id: 6,
+      image: alpacaAsset + "/backgrounds/darkblue70.png",
+      name: "DarkBlue70",
+      selected: false,
+    },
+    {
+      id: 7,
+      image: alpacaAsset + "/backgrounds/green50.png",
+      name: "Green50",
+      selected: false,
+    },
+    {
+      id: 8,
+      image: alpacaAsset + "/backgrounds/green60.png",
+      name: "Green60",
+      selected: false,
+    },
+    {
+      id: 9,
+      image: alpacaAsset + "/backgrounds/green70.png",
+      name: "Green70",
+      selected: false,
+    },
+    {
+      id: 10,
+      image: alpacaAsset + "/backgrounds/grey40.png",
+      name: "Grey40",
+      selected: false,
+    },
+    {
+      id: 11,
+      image: alpacaAsset + "/backgrounds/grey70.png",
+      name: "Grey70",
+      selected: false,
+    },
+    {
+      id: 12,
+      image: alpacaAsset + "/backgrounds/grey80.png",
+      name: "Grey80",
+      selected: false,
+    },
+    {
+      id: 13,
+      image: alpacaAsset + "/backgrounds/red50.png",
+      name: "Red50",
+      selected: false,
+    },
+    {
+      id: 14,
+      image: alpacaAsset + "/backgrounds/red60.png",
+      name: "Red60",
+      selected: false,
+    },
+    {
+      id: 15,
+      image: alpacaAsset + "/backgrounds/red70.png",
+      name: "Red70",
+      selected: false,
+    },
+    {
+      id: 16,
+      image: alpacaAsset + "/backgrounds/yellow50.png",
+      name: "Yellow50",
+      selected: false,
+    },
+    {
+      id: 17,
+      image: alpacaAsset + "/backgrounds/yellow60.png",
+      name: "Yellow60",
+      selected: false,
+    },
+    {
+      id: 18,
+      image: alpacaAsset + "/backgrounds/yellow70.png",
+      name: "yellow70",
+      selected: false,
+    },
+  ],
+};
+
+export default dataAlpaca;
