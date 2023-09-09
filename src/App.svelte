@@ -87,19 +87,18 @@ function activeStyleFunction(text,findtext){
 <div class="container">
   <h1>ALPACA GENERATOR</h1>
   <div class="box">
-    <div style="display:flex;flex-direction:column;">
-      <div bind:this={findData.canvas} style="postion:relative;width:300px;height:300px;background-image:url({findData.backgrounds.image});">
-        <img src={findData.mouth.image} style="position: absolute;bottom:200px; width: 300px;z-index:1;" alt="mouth" />
-        <img src={findData.leg.image} style="position: absolute;bottom:194px;left:290px; width: 300px;" alt="leg" />
-        <img src={findData.hair.image} style="position: absolute;bottom:200px; width: 300px;" alt="hair" />
-        <img src={findData.eyes.image} style="position: absolute;bottom:200px; width: 300px;z-index:1;" alt="eyes" />
-        <img src={findData.ears.image} style="position: absolute;bottom:194px; width: 300px;" alt="ears" />
-        <img src={findData.neck.image} style="position: absolute;bottom:194px; width: 300px;" alt="neck"/>
-        <img src={findData.accessories.image} style="position: absolute;bottom:200px;width:300px;" alt="accessories" />
-        <img src={findData.nose.image} style="position: absolute;bottom:200px;width:300px;" alt="nose" />
+    <div class="box-image">
+      <div bind:this={findData.canvas} class="box-color" style="background-image:url({findData.backgrounds.image});">
+        <img src={findData.mouth.image} style="position: absolute;" class="image-mouth" alt="mouth" />
+        <img src={findData.leg.image} style="position: absolute;" class="image-leg" alt="leg" />
+        <img src={findData.hair.image} style="position: absolute;" class="image-hair" alt="hair" />
+        <img src={findData.eyes.image} style="position: absolute;" class="image-eyes" alt="eyes" />
+        <img src={findData.ears.image} style="position: absolute;" class="image-ears" alt="ears" />
+        <img src={findData.neck.image} style="position: absolute;" class="image-neck" alt="neck"/>
+        <img src={findData.accessories.image} style="position: absolute;" class="image-accessories" alt="accessories" />
+        <img src={findData.nose.image} style="position: absolute;" class="image-nose" alt="nose" />
 
-      </div>
-      <div style="display:flex; flex-direction:row; margin-top:20px;width:100%;">
+      </div> <div style="display:flex; flex-direction:row; margin-top:20px;width:100%;">
         <button on:click|preventDefault={() => findData.random()} style="cursor:pointer;color:black;background-color:white;border:none;padding:10px;width:100%;margin-right:10px;">Random</button>
         <button on:click|preventDefault={() => findData.download()} style="cursor:pointer;color:black;background-color:white;border:none;padding:10px;width:100%;">Download</button>
       </div>
@@ -117,7 +116,7 @@ function activeStyleFunction(text,findtext){
           <Buttons text="Backgrounds" activeStyle={activeStyleFunction('backgrounds',findData.text)} onClick={() => findData.text = "backgrounds"} left={5} />
         </div>
         <h6>STYLE</h6>
-        <div class="box-inside-button" style="width: 350px;">
+        <div class="box-inside-button">
           {#each findData.getDataItem as item }
             <Buttons text={item.name} activeStyle={item.selected} onClick={() => findData.imageClick(findData.text,item.name)} />
           {/each}
@@ -132,9 +131,11 @@ function activeStyleFunction(text,findtext){
 * {
   font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
+  margin:0;
+  padding:0;
 }
 
-.container {
+.container { 
   min-height: 100vh;
   width: 800px;
   margin: 10px auto;
@@ -145,17 +146,95 @@ function activeStyleFunction(text,findtext){
   display: flex;
   flex-direction: row;
 }
+.box-image {
+  display:flex;
+  flex-direction:column;
+}
 .box-button {
   display: flex;
   flex-direction: column;
   margin-left:30px;
   width: 300px;
-  margin-top: -20px;
+}
+h6 {
+  margin-bottom:30px;
 }
 .box-inside-button {
   display:flex;
   flex-direction:row;
   flex-wrap:wrap;
   margin-top: -20px;
+  width: 350px;
+  margin-bottom:30px;
 }
+
+.box-color {
+  position:relative;
+  width:300px;
+  height:300px;
+}
+.image-mouth {
+  top:0px;
+  width: 300px;
+  z-index:1;
+}
+.image-leg {
+  top:0px;
+  left:0px; 
+  width: 300px;
+}
+.image-hair {
+  top:0px;
+  width: 300px;
+}
+.image-eyes {
+  top:0px;
+  width: 300px;
+  z-index:1;
+}
+.image-ears {
+  top:0px;
+  width: 300px;
+}
+.image-neck {
+  top:0px;
+  width: 300px;
+}
+.image-accessories {
+  top:0px;
+  width:300px;
+}
+.image-nose{
+  top:0px;
+  width:300px;
+}
+@media only screen and (max-width: 600px) and (min-width: 300px) {
+  .container {
+    width: 100%;
+  }
+  .box-color {
+    width: 100%;
+  }
+  .image-leg {
+    left:30px;
+  }
+  h1 {
+    text-align:center;
+  }
+  .box {
+    display: flex;
+    flex-direction: column;
+  }
+  .box-image {
+    margin-bottom: 30px;
+  }
+  h6 {
+    margin-bottom:30px;
+  }
+  .box-button {
+    width: 100%;
+    margin:0;
+  }
+} 
+
 </style>
