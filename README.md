@@ -18,7 +18,11 @@ Screenshots of your app and/or a link to your live demo
 Instructions for other developers on how to install and run your code on their local environment.
 
 ```bash
+git clone https://github.com/afman42/alpaca-image-generator-svelte
 
+npm install
+
+npm run dev
 ```
 
 ## License
