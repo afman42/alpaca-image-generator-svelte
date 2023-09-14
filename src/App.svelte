@@ -75,6 +75,7 @@ let findData = {
   }
 };
 
+$: getDataAlpaca = Object.keys(dataAlpaca).filter(v => v !== "nose").map(v => v);
 
 function activeStyleFunction(text,findtext){
   if(text == findtext){
@@ -106,14 +107,9 @@ function activeStyleFunction(text,findtext){
      <div class="box-button">
         <h6>ACCESSORIES THE ALPACA'S</h6>
         <div class="box-inside-button">
-          <Buttons text="Mouth" activeStyle={activeStyleFunction('mouth',findData.text)} onClick={() => findData.text = "mouth"} />
-          <Buttons text="Leg"  activeStyle={activeStyleFunction('leg',findData.text)} onClick={() => findData.text = "leg"} left={5} />
-          <Buttons text="Hair" activeStyle={activeStyleFunction('hair',findData.text)} onClick={() => findData.text = "hair"} left={5} />
-          <Buttons text="Eyes" activeStyle={activeStyleFunction('eyes',findData.text)} onClick={() => findData.text = "eyes"} />
-          <Buttons text="Ears" activeStyle={activeStyleFunction('ears',findData.text)} onClick={() => findData.text = "ears"} left={5} />
-          <Buttons text="Neck" activeStyle={activeStyleFunction('neck',findData.text)} onClick={() => findData.text = "neck"} left={5} />
-          <Buttons text="Accessories" activeStyle={activeStyleFunction('accessories',findData.text)}  onClick={() => findData.text = "accessories"} />
-          <Buttons text="Backgrounds" activeStyle={activeStyleFunction('backgrounds',findData.text)} onClick={() => findData.text = "backgrounds"} left={5} />
+          {#each getDataAlpaca as item}
+            <Buttons text={item[0].toUpperCase() + item.substring(1,item.length)} activeStyle={activeStyleFunction(item,findData.text)} onClick={() => findData.text = item} />
+          {/each}
         </div>
         <h6>STYLE</h6>
         <div class="box-inside-button">
