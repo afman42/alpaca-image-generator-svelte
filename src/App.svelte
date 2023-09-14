@@ -51,7 +51,7 @@ let findData = {
   download(){
     html2canvas(this.canvas).then(cnvs => {
       var link = document.createElement("a");
-      link.download = "lamb.png";
+      link.download = "alpaca.png";
       link.href = cnvs.toDataURL();
       link.click();
     })
@@ -75,7 +75,7 @@ let findData = {
   }
 };
 
-$: getDataAlpaca = Object.keys(dataAlpaca).filter(v => v !== "nose").map(v => v);
+$: getDataAlpaca = Object.keys(dataAlpaca).filter(v => v !== "nose");
 
 function activeStyleFunction(text,findtext){
   if(text == findtext){
