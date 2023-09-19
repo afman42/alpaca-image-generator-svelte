@@ -6,7 +6,7 @@ export let onClick = () => {};
 
 </script>
 
-<button style:margin-left={left + "px"} style={activeStyle ? "color:white;background-color:blue;" : ""} on:click|preventDefault={onClick} >
+<button data-testid="button" style:margin-left={left + "px"} style={activeStyle ? "color:white;background-color:blue;" : ""} on:click|preventDefault={onClick} >
 {text}
 </button>
 
