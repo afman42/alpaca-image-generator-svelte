@@ -90,16 +90,17 @@ function activeStyleFunction(text,findtext){
   <div class="box">
     <div class="box-image">
       <div bind:this={findData.canvas} class="box-color" style="background-image:url({findData.backgrounds.image});">
-        <img src={findData.mouth.image} style="position: absolute;" class="image-mouth" alt="mouth" />
-        <img src={findData.leg.image} style="position: absolute;" class="image-leg" alt="leg" />
-        <img src={findData.hair.image} style="position: absolute;" class="image-hair" alt="hair" />
-        <img src={findData.eyes.image} style="position: absolute;" class="image-eyes" alt="eyes" />
-        <img src={findData.ears.image} style="position: absolute;" class="image-ears" alt="ears" />
-        <img src={findData.neck.image} style="position: absolute;" class="image-neck" alt="neck"/>
-        <img src={findData.accessories.image} style="position: absolute;" class="image-accessories" alt="accessories" />
-        <img src={findData.nose.image} style="position: absolute;" class="image-nose" alt="nose" />
+        <img src={findData.mouth.image} style="z-index:1;" alt="mouth" />
+        <img src={findData.leg.image} alt="leg" style="left:0px;" />
+        <img src={findData.hair.image} alt="hair" />
+        <img src={findData.eyes.image} style="z-index:1;" alt="eyes" />
+        <img src={findData.ears.image} alt="ears" />
+        <img src={findData.neck.image} alt="neck"/>
+        <img src={findData.accessories.image} alt="accessories" />
+        <img src={findData.nose.image} alt="nose" />
 
-      </div> <div style="display:flex; flex-direction:row; margin-top:20px;width:100%;">
+      </div> 
+      <div style="display:flex; flex-direction:row; margin-top:20px;width:100%;">
         <button on:click|preventDefault={() => findData.random()} style="cursor:pointer;color:black;background-color:white;border:none;padding:10px;width:100%;margin-right:10px;">Random</button>
         <button on:click|preventDefault={() => findData.download()} style="cursor:pointer;color:black;background-color:white;border:none;padding:10px;width:100%;">Download</button>
       </div>
@@ -169,40 +170,11 @@ h6 {
   width:300px;
   height:300px;
 }
-.image-mouth {
+
+.box-color > img {
+  position: absolute;
   top:0px;
   width: 300px;
-  z-index:1;
-}
-.image-leg {
-  top:0px;
-  left:0px; 
-  width: 300px;
-}
-.image-hair {
-  top:0px;
-  width: 300px;
-}
-.image-eyes {
-  top:0px;
-  width: 300px;
-  z-index:1;
-}
-.image-ears {
-  top:0px;
-  width: 300px;
-}
-.image-neck {
-  top:0px;
-  width: 300px;
-}
-.image-accessories {
-  top:0px;
-  width:300px;
-}
-.image-nose{
-  top:0px;
-  width:300px;
 }
 @media only screen and (max-width: 600px) and (min-width: 300px) {
   .container {
