@@ -1,87 +1,82 @@
 <script>
-import Buttons from "./lib/Buttons.svelte" 
-import dataAlpaca from "./data"
-import html2canvas from "html2canvas"
+import Buttons from "./lib/Buttons.svelte";
+import dataAlpaca from "./data";
+import html2canvas from "html2canvas";
 
-let findData = {
-  text: "hair",
-  canvas: null,
-  mouth: dataAlpaca['mouth'][0],
-  nose: dataAlpaca['nose'][0],
-  leg: dataAlpaca['leg'][0],
-  hair: dataAlpaca['hair'][0],
-  eyes: dataAlpaca['eyes'][0],
-  ears: dataAlpaca['ears'][0],
-  neck: dataAlpaca['neck'][0],
-  accessories: dataAlpaca['accessories'][0],
-  backgrounds: dataAlpaca['backgrounds'][0],
-  get getDataItem(){
-    return dataAlpaca[this.text]
-  },
-  set setDataItem(item){
-    dataAlpaca[this.text] = item;
-  },
-  random(){
-    Object.keys(dataAlpaca).forEach(v => {
-       let combine = dataAlpaca[v].map((item) => ({ item, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ item }) => item)
+const cloneOptions = () =>
+  Object.fromEntries(
+    Object.entries(dataAlpaca).map(([category, items]) => [
+      category,
+      items.map((item) => ({ ...item })),
+    ])
+  );
 
-      findData[v] = combine[0]
-      dataAlpaca[v] = combine.map((v,i) => {
-        if(v.selected){
-          return {
-            ...v,
-            selected: false
-          }
-        }
-        if(i === 0){
-          return {
-            ...v,
-            selected: true
-          }
-        }
-        return {
-          ...v,
-          selected: false
-        }
-      })
-    })
-  },
-  download(){
-    html2canvas(this.canvas).then(cnvs => {
-      var link = document.createElement("a");
-      link.download = "alpaca.png";
-      link.href = cnvs.toDataURL();
-      link.click();
-    })
-  },
-  imageClick(findtext,name){
-    let tempDataItem = this.getDataItem.map((value) => {
-      if(value.name.includes(name)){
-        return {
-          ...value,
-          selected: !value.selected,
-        }
-      }  
-      return  {
-        ...value,
-        selected: false,
-      }
-    })
+const buildSelections = (options) =>
+  Object.fromEntries(
+    Object.entries(options).map(([category, items]) => [
+      category,
+      items.find((item) => item.selected) ?? items[0],
+    ])
+  );
 
-    findData[findtext] = tempDataItem.find((value) => value.name.includes(name))
-    this.setDataItem = tempDataItem
+const formatCategoryLabel = (category) =>
+  category.charAt(0).toUpperCase() + category.slice(1);
+
+let alpacaOptions = cloneOptions();
+let selectedParts = buildSelections(alpacaOptions);
+let activeCategory = "hair";
+let canvas;
+
+$: selectableCategories = Object.keys(alpacaOptions).filter(
+  (category) => category !== "nose"
+);
+$: styleOptions = alpacaOptions[activeCategory] ?? [];
+
+function setSelection(category, name) {
+  const updatedCategory = alpacaOptions[category].map((item) => ({
+    ...item,
+    selected: item.name === name,
+  }));
+
+  const selected =
+    updatedCategory.find((item) => item.selected) ?? updatedCategory[0];
+
+  alpacaOptions = { ...alpacaOptions, [category]: updatedCategory };
+  selectedParts = { ...selectedParts, [category]: selected };
+}
+
+function handleCategoryChange(category) {
+  activeCategory = category;
+}
+
+function randomize() {
+  const nextOptions = {};
+  const nextSelected = {};
+
+  for (const [category, items] of Object.entries(alpacaOptions)) {
+    const randomItem = items[Math.floor(Math.random() * items.length)];
+
+    nextOptions[category] = items.map((item) => ({
+      ...item,
+      selected: item.id === randomItem.id,
+    }));
+
+    nextSelected[category] =
+      nextOptions[category].find((item) => item.selected) ?? randomItem;
   }
-};
 
-$: getDataAlpaca = Object.keys(dataAlpaca).filter(v => v !== "nose");
+  alpacaOptions = nextOptions;
+  selectedParts = nextSelected;
+}
 
-function activeStyleFunction(text,findtext){
-  if(text == findtext){
-    return true;
-  }
-  return false;
+async function download() {
+  if (!canvas) return;
+
+  const cnvs = await html2canvas(canvas);
+  const link = document.createElement("a");
+  link.download = "alpaca.png";
+  link.href = cnvs.toDataURL();
+  link.click();
 }
 </script>
 
@@ -89,33 +84,50 @@ function activeStyleFunction(text,findtext){
   <h1>ALPACA GENERATOR</h1>
   <div class="box">
     <div class="box-image">
-      <div bind:this={findData.canvas} class="box-color" style="background-image:url({findData.backgrounds.image});">
-        <img src={findData.mouth.image} style="z-index:1;" alt="mouth" />
-        <img src={findData.leg.image} alt="leg" style="left:0px;" />
-        <img src={findData.hair.image} alt="hair" />
-        <img src={findData.eyes.image} style="z-index:1;" alt="eyes" />
-        <img src={findData.ears.image} alt="ears" />
-        <img src={findData.neck.image} alt="neck"/>
-        <img src={findData.accessories.image} alt="accessories" />
-        <img src={findData.nose.image} alt="nose" />
-
-      </div> 
+      <div
+        bind:this={canvas}
+        class="box-color"
+        style={`background-image:url(${selectedParts.backgrounds.image});`}
+      >
+        <img src={selectedParts.mouth.image} style="z-index:1;" alt="mouth" />
+        <img src={selectedParts.leg.image} alt="leg" style="left:0px;" />
+        <img src={selectedParts.hair.image} alt="hair" />
+        <img src={selectedParts.eyes.image} style="z-index:1;" alt="eyes" />
+        <img src={selectedParts.ears.image} alt="ears" />
+        <img src={selectedParts.neck.image} alt="neck" />
+        <img src={selectedParts.accessories.image} alt="accessories" />
+        <img src={selectedParts.nose.image} alt="nose" />
+      </div>
       <div style="display:flex; flex-direction:row; margin-top:20px;width:100%;">
-        <button on:click|preventDefault={() => findData.random()} style="cursor:pointer;color:black;background-color:white;border:none;padding:10px;width:100%;margin-right:10px;">Random</button>
-        <button on:click|preventDefault={() => findData.download()} style="cursor:pointer;color:black;background-color:white;border:none;padding:10px;width:100%;">Download</button>
+        <button
+          on:click|preventDefault={randomize}
+          style="cursor:pointer;color:black;background-color:white;border:none;padding:10px;width:100%;margin-right:10px;"
+        >Random</button>
+        <button
+          on:click|preventDefault={download}
+          style="cursor:pointer;color:black;background-color:white;border:none;padding:10px;width:100%;"
+        >Download</button>
       </div>
     </div>
      <div class="box-button">
         <h6>ACCESSORIES THE ALPACA'S</h6>
         <div class="box-inside-button">
-          {#each getDataAlpaca as item}
-            <Buttons text={item[0].toUpperCase() + item.substring(1,item.length)} activeStyle={activeStyleFunction(item,findData.text)} onClick={() => findData.text = item} />
+          {#each selectableCategories as category}
+            <Buttons
+              text={formatCategoryLabel(category)}
+              activeStyle={category === activeCategory}
+              onClick={() => handleCategoryChange(category)}
+            />
           {/each}
         </div>
         <h6>STYLE</h6>
         <div class="box-inside-button">
-          {#each findData.getDataItem as item }
-            <Buttons text={item.name} activeStyle={item.selected} onClick={() => findData.imageClick(findData.text,item.name)} />
+          {#each styleOptions as item}
+            <Buttons
+              text={item.name}
+              activeStyle={item.selected}
+              onClick={() => setSelection(activeCategory, item.name)}
+            />
           {/each}
         </div>
     </div>
